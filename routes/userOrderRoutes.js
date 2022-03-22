@@ -4,8 +4,12 @@ const {
   getOrderById,
   getOrderByUser,
   addOrder,
+  closeOrder
+  
 } = require('../controller/userOrderController');
 
+//closr a order
+router.post('/closebill', closeOrder);
 //add a order
 router.post('/add', addOrder);
 

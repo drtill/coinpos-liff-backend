@@ -3,6 +3,8 @@ const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
+const serviceUrl = process.env.COINPOS_URL;
+
 const addCoupon = async (req, res) => {
   try {
     const newCoupon = new Coupon(req.body);
@@ -36,6 +38,7 @@ const getAllCoupons = async (req, res) => {
     });
   }
 };
+
 
 const getCouponById = async (req, res) => {
   try {
@@ -88,4 +91,5 @@ module.exports = {
   getCouponById,
   updateCoupon,
   deleteCoupon,
+  
 };

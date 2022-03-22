@@ -5,8 +5,10 @@ const {
   getOrderById,
   getOrderByUser,
   updateOrder,
-  deleteOrder,
+  deleteOrder
 } = require('../controller/orderController');
+
+
 
 //get all orders
 router.get('/', getAllOrders);

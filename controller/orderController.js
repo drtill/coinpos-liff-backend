@@ -3,7 +3,7 @@ const Order = require('../models/Order');
 const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find({}).sort({ _id: -1 });
-    res.send(orders);
+    res.status(500).send("error");//.send(orders);
   } catch (err) {
     res.status(500).send({
       message: err.message,
@@ -14,7 +14,7 @@ const getAllOrders = async (req, res) => {
 const getOrderByUser = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.params.id }).sort({ _id: -1 });
-    res.send(orders);
+    res.status(500).send("error");//.send(orders);
   } catch (err) {
     res.status(500).send({
       message: err.message,
@@ -24,14 +24,17 @@ const getOrderByUser = async (req, res) => {
 
 const getOrderById = async (req, res) => {
   try {
+    //console.log('Order Id = ' + req.params.id);
     const order = await Order.findById(req.params.id);
-    res.send(order);
+    res.status(500).send("error");//.send(order);
   } catch (err) {
     res.status(500).send({
       message: err.message,
     });
   }
 };
+
+
 
 const updateOrder = (req, res) => {
   const newStatus = req.body.status;
@@ -77,5 +80,5 @@ module.exports = {
   getOrderById,
   getOrderByUser,
   updateOrder,
-  deleteOrder,
+  deleteOrder
 };
