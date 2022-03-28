@@ -214,7 +214,46 @@ const applyPromotionCode = async(req,res) =>
       "PromotionCode":"${req.body.qrPromotion}",
       "UserId":1,
       "LineUserId": "${req.body.lineUserId}",
-      "LinePOSId":"${req.body.linePOSId}","LiffId":"${req.body.liffId}","PictureUrl":"${req.body.pictureUrl}"}`
+      "LinePOSId":"${req.body.linePOSId}","LiffId":"${req.body.liffId}","PictureUrl":"${req.body.pictureUrl}",
+      "CatalogName":"${req.body.catalogName}","OrderDetails":${req.body.orderDetails}}`
+      }).then(function(response) {
+        return response.text();
+      }).then(function(data) {
+
+      //var obj = JSON.parse(data);
+      //console.log("Obj = " + obj);
+      //console.log(data); // this will be a string
+      productList = data;
+    });
+    
+      res.send(productList);
+  }
+  catch (err) 
+  {
+    res.status(200).send({
+      message: err.message,
+    });
+  }
+};
+const cancelPromotionCode = async(req,res) =>
+{
+  try
+  {
+    //res.send("Close Bill");
+    //console.log(req.body);
+    //return;
+    await fetch(serviceUrl + 'ApplyPromotionCode',//fetch('http://localhost:5002/simple-cors3', 
+    { 
+      method:'POST',
+      //credentials:"include",
+      headers: {'Content-Type': 'application/json','x-security-lock':'0241CCFF2D40AF7AF8A4FC02272C47A30D15DBDFB36E3266D1296212574F328E'},
+      body:`{"CompanyId":${req.body.companyId},"LocationId":${req.body.locationId},
+      "OrderId":${req.body.orderId},
+      "PromotionCode":"${req.body.qrPromotion}",
+      "UserId":1,
+      "LineUserId": "${req.body.lineUserId}",
+      "LinePOSId":"${req.body.linePOSId}","LiffId":"${req.body.liffId}","PictureUrl":"${req.body.pictureUrl}",
+      "CatalogName":"${req.body.catalogName}","OrderDetails":${req.body.orderDetails}}`
       }).then(function(response) {
         return response.text();
       }).then(function(data) {
@@ -348,7 +387,7 @@ const getPayOrderById = async (req, res) => {
       }).then(function(data) {
 
       //var obj = JSON.parse(data);
-      //console.log("Obj = " + obj);
+      console.log("Obj = " + data);
       //console.log(data); // this will be a string
       productList = data;
     });
@@ -575,7 +614,7 @@ const addToCoinPOSCart = async(req,res) => {
         method:'POST',
         //credentials:"include",
         headers: {'Content-Type': 'application/json','x-security-lock':'0241CCFF2D40AF7AF8A4FC02272C47A30D15DBDFB36E3266D1296212574F328E'},
-        body:`{"OrderId": ${req.body.orderId},"ProductVariantId": ${req.body.pvId}, "CompanyId": ${req.body.companyId === null ? 0 : req.body.companyId}, "StockLocationId":${req.body.locationId === null ? 0 : req.body.locationId},"PromotionCode":"","TaxTypeId":2,"LineUserId":"${req.body.lineUserId}","LinePOSId":"${req.body.linePOSId}","GroupId":"${req.body.groupId}","LiffId":"${req.body.liffId}","PictureUrl":"${req.body.pictureUrl}"}`
+        body:`{"OrderId": ${req.body.orderId},"ProductVariantId": ${req.body.pvId}, "CompanyId": ${req.body.companyId === null ? 0 : req.body.companyId}, "StockLocationId":${req.body.locationId === null ? 0 : req.body.locationId},"PromotionCode":"","TaxTypeId":2,"LineUserId":"${req.body.lineUserId}","LinePOSId":"${req.body.linePOSId}","GroupId":"${req.body.groupId}","LiffId":"${req.body.liffId}","PictureUrl":"${req.body.pictureUrl}","PromotionCode":"${req.body.promotionCode}"}`
         
       }).then(function(response) {
         return response.text();
@@ -638,12 +677,13 @@ const getCoinPOSProductsService = async(req,res) =>
   try
   {
     //var body = '';
-    //body = req.body;//JSON.parse(req.body)
+    body = JSON.stringify(req.body)
     //res.send(req.body.liffId);
-    console.log(req.body);
+    //console.log(serviceUrl + 'GetLiffProductList');
     //return;
     //var countryData = await getCountry(req,res);
     //console.log("Counrty = " + JSON.stringify(countryData));
+    console.log("body = " + body);
     //return;
     const products = await fetch(serviceUrl + 'GetLiffProductList',//fetch('http://localhost:5002/simple-cors3', 
       { 
@@ -651,7 +691,7 @@ const getCoinPOSProductsService = async(req,res) =>
         //credentials:"include",
         headers: {'Content-Type': 'application/json','x-security-lock':'0241CCFF2D40AF7AF8A4FC02272C47A30D15DBDFB36E3266D1296212574F328E'},
         body:`{"LiffId": "${req.body.liffId}","LineUserId":"${req.body.lineUserId}", "LinePOSId":"${req.body.linePOSId}", "GroupId":"${req.body.groupId}","OrderId":${req.body.orderId},"CompanyId":${req.body.companyId},
-        "CatalogName":"${req.body.catalogName}","PromotionId":${req.body.promotionId},"LocationId":${req.body.locationId},"CompanyName":"${req.body.companyName}","LocationName":"${req.body.locationName}","Page":${req.body.page},"RowPerPage":${req.body.itemPerPage},"Query":"${req.body.query}","Category":"${req.body.category}","Product":"${req.body.product}"}`
+        "CatalogName":"${req.body.catalogName}","CompanyCode":"${req.body.companyCode}","PromotionId":${req.body.promotionId},"LocationId":${req.body.locationId},"CompanyName":"${req.body.companyName}","LocationName":"${req.body.locationName}","Page":${req.body.page},"RowPerPage":${req.body.itemPerPage},"Query":"${req.body.query}","Category":"${req.body.category}","Product":"${req.body.product}"}`
         
       }).then(function(response) {
         return response.text();
@@ -689,6 +729,60 @@ const getCoinPOSProductsService = async(req,res) =>
             //root.hidden = false;
     }); */
     //return countryData
+
+      res.send(productList);
+  }
+  catch(err) {
+    res.status(500).send({
+      //res.send({
+      message: err.message,
+    });
+  }
+}
+const getDefaultDataCompany = async(req,res) => 
+{
+  try
+  {
+    //var body = '';
+    body = JSON.stringify(req.body)
+    //res.send(req.body.liffId);
+    //console.log(serviceUrl + 'GetLiffProductList');
+    //return;
+    //var countryData = await getCountry(req,res);
+    //console.log("Counrty = " + JSON.stringify(countryData));
+    console.log("body = " + body);
+    //return;
+    const products = await fetch(serviceUrl + 'GetDefaultDataCompany',//fetch('http://localhost:5002/simple-cors3', 
+      { 
+        method:'POST',
+        //credentials:"include",
+        headers: {'Content-Type': 'application/json','x-security-lock':'0241CCFF2D40AF7AF8A4FC02272C47A30D15DBDFB36E3266D1296212574F328E'},
+        body:`{"LiffId": "${req.body.liffId}","LineUserId":"${req.body.lineUserId}", "LinePOSId":"${req.body.linePOSId}", "GroupId":"${req.body.groupId}","OrderId":${req.body.orderId},"CompanyId":${req.body.companyId},
+        "CatalogName":"${req.body.catalogName}","CompanyCode":"${req.body.companyCode}","PromotionId":${req.body.promotionId},"LocationId":${req.body.locationId},"CompanyName":"${req.body.companyName}","LocationName":"${req.body.locationName}","Page":${req.body.page},"RowPerPage":${req.body.itemPerPage},"Query":"${req.body.query}","Category":"${req.body.category}","Product":"${req.body.product}"}`
+        
+      }).then(function(response) {
+        return response.text();
+      }).then(function(data) {
+
+        console.log("GetData = " + data)
+        try
+        {
+          var obj = JSON.parse(data);
+          var pvJson = obj.ProductVariantListJson
+          productList = JSON.parse(pvJson)
+        }
+        catch(ex)
+        {
+          res.send({
+            //res.send({
+            message: data,
+          });
+        }
+        
+        
+        //closeNav(null);
+      });
+    
 
       res.send(productList);
   }
@@ -891,7 +985,9 @@ module.exports = {
   getCoinPOSCoupons,
   sendBankTransferPayment,
   applyPromotionCode,
+  cancelPromotionCode,
   getOrderByUserId,
   getDashboardOrderByUserId,
-  saveCustomerInfo
+  saveCustomerInfo,
+  getDefaultDataCompany
 };

@@ -706,6 +706,7 @@ const getLiffURLTemplate = async(req,res) =>
     var url = serviceUrl + 'GetLiffURLTemplate'
     //res.send("getLiff URL = " + url);
     //return;
+    console.log("getLiff URL")
     await fetch(url,
       { 
         method:'GET',
@@ -716,7 +717,7 @@ const getLiffURLTemplate = async(req,res) =>
         return response.text();
       }).then(function(data) {
 
-        
+        console.log(data);
         var obj = data;
         template = obj;
       });

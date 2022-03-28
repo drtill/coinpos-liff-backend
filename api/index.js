@@ -20,7 +20,7 @@ const app = express();
 app.enable('trust proxy');
 
 app.use(express.json({ limit: '4mb' }));
-app.use(cors("https://f771-58-8-177-222.ap.ngrok.io"));
+app.use(cors("https://0ac4-2001-fb1-b2-bc6d-2528-27be-7662-8bf3.ap.ngrok.io"));
 
 //root route
 app.get('/', (req, res) => {

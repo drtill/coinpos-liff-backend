@@ -31,7 +31,9 @@ const {
   applyPromotionCode,
   getOrderByUserId,
   getDashboardOrderByUserId,
-  saveCustomerInfo
+  saveCustomerInfo,
+  getDefaultDataCompany,
+  cancelPromotionCode
 } = require('../controller/productController');
 
 //add a product
@@ -47,6 +49,7 @@ router.post('/GetCity', getCity);
 
 //Get CoinPOSCart
 router.post('/ApplyPromotionCode',applyPromotionCode);
+router.post('/CancelPromotionCode',cancelPromotionCode);
 router.post('/SendBankTransferPayment',sendBankTransferPayment);
 router.post('/GetCoinPOSCoupon', getCoinPOSCoupons);
 router.post('/GetQRPayment', getQRPayment);
@@ -63,6 +66,7 @@ router.post('/RemoveCoinPOSCartDetail', removeCoinPOSCartDetail);
 
 router.post('/coinpos_service', getCoinPOSProductsService);
 router.post('/show1', getCoinPOSProductsService);
+router.post('/GetDefaultDataCompany', getDefaultDataCompany);
 //get a product
 router.post('/:id', getProductById);
 
