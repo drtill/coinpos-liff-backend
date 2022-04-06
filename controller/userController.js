@@ -372,6 +372,10 @@ const loginUser = async (req, res) => {
 };
 const coinposLoginUser = async (req, res) => {
   try {
+    console.log("coinposLoginUser = " + JSON.stringify(userJson)); 
+    return res.status(404).send({
+      message: 'User Not found with this email!',
+    });
     //const user = await User.findOne({ email: req.body.registerEmail });
     const userJson = await findCoinPOSCustomerAccount(req.body.companyId,req.body.registerEmail,req.body.password);//findCoinPOSEmail(req.body.companyId,req.body.email);
 
