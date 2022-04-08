@@ -32,7 +32,7 @@ const {
   getOrderByUserId,
   getDashboardOrderByUserId,
   saveCustomerInfo,
-  getDefaultDataCompany,
+  //getDefaultDataCompany,
   cancelPromotionCode
 } = require('../controller/productController');
 
@@ -66,7 +66,7 @@ router.post('/RemoveCoinPOSCartDetail', removeCoinPOSCartDetail);
 
 router.post('/coinpos_service', getCoinPOSProductsService);
 router.post('/show1', getCoinPOSProductsService);
-router.post('/GetDefaultDataCompany', getDefaultDataCompany);
+//router.post('/GetDefaultDataCompany', getDefaultDataCompany);
 //get a product
 router.post('/:id', getProductById);
 

@@ -739,7 +739,7 @@ const getCoinPOSProductsService = async(req,res) =>
     });
   }
 }
-const getDefaultDataCompany = async(req,res) => 
+/* const getDefaultDataCompany = async(req,res) => 
 {
   try
   {
@@ -792,7 +792,7 @@ const getDefaultDataCompany = async(req,res) =>
       message: err.message,
     });
   }
-}
+} */
 const getCoinPOSProducts = async(req,res) => {
   try
   {
@@ -989,5 +989,5 @@ module.exports = {
   getOrderByUserId,
   getDashboardOrderByUserId,
   saveCustomerInfo,
-  getDefaultDataCompany
+  //getDefaultDataCompany
 };
